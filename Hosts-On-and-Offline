@@ -1,0 +1,13 @@
+#!/bin/bash
+while IFS= read -r host || [ -n "$host" ]; do
+    if ping -c2 $host &>/dev/null; 
+    then
+        echo "Online";
+    else
+        echo "Hosts Offline" | ssmtp (email)
+        sleep 2
+    fi
+done < "~/scripts/listhost"
+
+# acrescentar no crontab
+# */1 * * * * bash ~/scripts/hosts-on-offline.sh
